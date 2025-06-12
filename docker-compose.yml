@@ -2,45 +2,57 @@ version: '3'
 
 services:
   db:
-    image: postgres:13-alpine
+    image: postgres:15-alpine
+    container_name: db
     restart: unless-stopped
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - ./data/postgres:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=your_secure_password
-      - POSTGRES_USER=synapse
-      - POSTGRES_DB=synapse
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    networks:
+      - matrix
 
   synapse:
     image: matrixdotorg/synapse:latest
+    container_name: synapse
     restart: unless-stopped
-    depends_on:
-      - db
     volumes:
-      - synapse-data:/data
-      - ./start-synapse.sh:/start-synapse.sh
+      - ./data/synapse:/data
+      - ./start-synapse.sh:/start-synapse.sh:ro
     environment:
       - SYNAPSE_SERVER_NAME=chats.gorsee.ru
-      - SYNAPSE_REPORT_STATS=no
-      - POSTGRES_PASSWORD=your_secure_password
-      - POSTGRES_USER=synapse
-      - POSTGRES_DB=synapse
-      - POSTGRES_HOST=db
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
       - SYNAPSE_ENABLE_REGISTRATION=true
-    entrypoint: ["/start-synapse.sh"]
+    depends_on:
+      - db
+    entrypoint: ["/bin/sh", "-c", "chmod +x /start-synapse.sh && /start-synapse.sh"]
     ports:
       - "8008:8008"
       - "8448:8448"
+    networks:
+      - matrix
 
   element:
-    build: .
+    image: vectorim/element-web:latest
     container_name: element
     restart: unless-stopped
+    volumes:
+      - ./config.chats.gorsee.ru.json:/app/config.json
     ports:
       - "30000:80"
     environment:
       - NODE_ENV=production
+    networks:
+      - matrix
 
 volumes:
   postgres-data:
-  synapse-data: 
+  synapse-data:
+
+networks:
+  matrix:
+    driver: bridge 
