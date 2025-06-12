@@ -1,0 +1,36 @@
+server_name: "your-domain.com"
+pid_file: /data/homeserver.pid
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    resources:
+      - names: [client]
+        compress: true
+      - names: [federation]
+        compress: false
+
+database:
+  name: psycopg2
+  args:
+    database: synapse
+    user: synapse
+    password: your_secure_password
+    host: db
+    cp_min: 5
+    cp_max: 10
+
+log_config: "/data/log.config"
+media_store_path: "/data/media_store"
+registration_shared_secret: "your_registration_shared_secret"
+macaroon_secret_key: "your_macaroon_secret_key"
+form_secret: "your_form_secret"
+signing_key_path: "/data/your-domain.com.signing.key"
+
+report_stats: false
+enable_registration: true
+enable_registration_without_verification: true
+
+trusted_key_servers:
+  - server_name: "matrix.org" 
