@@ -1,8 +1,8 @@
 {
     "default_server_config": {
         "m.homeserver": {
-            "base_url": "https://matrix-client.matrix.org",
-            "server_name": "matrix.org"
+            "base_url": "https://chats.gorsee.ru",
+            "server_name": "chats.gorsee.ru"
         },
         "m.identity_server": {
             "base_url": "https://vector.im"
@@ -17,11 +17,10 @@
         "https://scalar.vector.im/api",
         "https://scalar-staging.vector.im/_matrix/integrations/v1",
         "https://scalar-staging.vector.im/api",
-        "https://scalar-staging.vector.im/_matrix/integrations/v1",
-        "https://scalar-staging.vector.im/api"
+        "https://scalar-staging.vector.im/_matrix/integrations/v1"
     ],
     "bug_report_endpoint_url": "https://element.io/bugreports/submit",
-    "defaultCountryCode": "RU",
+    "defaultCountryCode": "GB",
     "showLabsSettings": false,
     "features": {
         "feature_new_spinner": false
@@ -33,7 +32,18 @@
             "matrix.org"
         ]
     },
+    "welcomeUserId": "@riot-bot:matrix.org",
+    "piwik": {
+        "url": "https://piwik.riot.im/",
+        "whitelistedHSUrls": ["https://matrix.org"],
+        "whitelistedSiteIds": [1]
+    },
+    "enable_presence_by_hs_url": {
+        "https://matrix.org": false
+    },
     "settingDefaults": {
+        "customTheme": false,
+        "useSystemTheme": true,
         "MessageComposerInput.suggestEmoji": false,
         "MessageComposerInput.showStickersButton": false,
         "MessageComposerInput.showPollsButton": false

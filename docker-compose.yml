@@ -30,9 +30,6 @@ services:
     depends_on:
       - db
     entrypoint: ["/bin/sh", "-c", "chmod +x /start-synapse.sh && /start-synapse.sh"]
-    ports:
-      - "8008:8008"
-      - "8448:8448"
     networks:
       - matrix
 
@@ -41,13 +38,11 @@ services:
     container_name: element
     restart: unless-stopped
     volumes:
-      - ./config.chats.gorsee.ru.json:/app/config.json
-    ports:
-      - "30000:80"
-    environment:
-      - NODE_ENV=production
+      - ./config.chats.gorsee.ru.json:/usr/share/nginx/html/config.json:ro
     networks:
       - matrix
+    ports:
+      - "30000:80"
 
 volumes:
   postgres-data:
