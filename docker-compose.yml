@@ -2,14 +2,10 @@ version: '3'
 
 services:
   element:
-    image: vectorim/element-web:latest
+    build: .
     container_name: element
     restart: unless-stopped
     ports:
       - "30000:80"
-    volumes:
-      - type: bind
-        source: ./config.json
-        target: /app/config.json
     environment:
       - NODE_ENV=production 
