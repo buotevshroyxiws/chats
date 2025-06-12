@@ -34,11 +34,11 @@ services:
       - matrix
 
   element:
-    image: vectorim/element-web:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.element
     container_name: element
     restart: unless-stopped
-    volumes:
-      - ./config.chats.gorsee.ru.json:/usr/share/nginx/html/config.json:ro
     networks:
       - matrix
     ports:
