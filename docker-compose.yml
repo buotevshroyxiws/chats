@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  element:
+    image: vectorim/element-web:latest
+    container_name: element
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./config.json:/app/config.json
+    environment:
+      - NODE_ENV=production 
