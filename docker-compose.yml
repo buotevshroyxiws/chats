@@ -18,6 +18,7 @@ services:
       - db
     volumes:
       - synapse-data:/data
+      - ./start-synapse.sh:/start-synapse.sh
     environment:
       - SYNAPSE_SERVER_NAME=chats.gorsee.ru
       - SYNAPSE_REPORT_STATS=no
@@ -26,13 +27,7 @@ services:
       - POSTGRES_DB=synapse
       - POSTGRES_HOST=db
       - SYNAPSE_ENABLE_REGISTRATION=true
-    command: >
-      sh -c "
-        if [ ! -f /data/homeserver.yaml ]; then
-          python -m synapse.app.homeserver --server-name chats.gorsee.ru --config-path /data/homeserver.yaml --generate-config --report-stats=no;
-        fi;
-        python -m synapse.app.homeserver --config-path /data/homeserver.yaml
-      "
+    entrypoint: ["/start-synapse.sh"]
     ports:
       - "8008:8008"
       - "8448:8448"
