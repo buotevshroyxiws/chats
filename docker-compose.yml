@@ -18,6 +18,7 @@ services:
       - db
     volumes:
       - synapse-data:/data
+      - ./homeserver.yaml:/data/homeserver.yaml:ro
     environment:
       - SYNAPSE_SERVER_NAME=your-domain.com
       - SYNAPSE_REPORT_STATS=no
