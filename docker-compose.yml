@@ -8,6 +8,8 @@ services:
     ports:
       - "30000:80"
     volumes:
-      - ./config.json:/app/config.json
+      - type: bind
+        source: ./config.json
+        target: /app/config.json
     environment:
       - NODE_ENV=production 
