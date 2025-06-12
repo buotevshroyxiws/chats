@@ -6,7 +6,7 @@ services:
     container_name: element
     restart: unless-stopped
     ports:
-      - "10000:80"
+      - "30000:80"
     volumes:
       - ./config.json:/app/config.json
     environment:

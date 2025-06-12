@@ -31,7 +31,7 @@ docker-compose up -d
 ## Доступ к серверу
 
 После установки Element будет доступен по адресу:
-- http://your-server-ip:10000
+- http://your-server-ip:30000
 
 ## Обновление
 
