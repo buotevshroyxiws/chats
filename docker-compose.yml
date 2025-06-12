@@ -27,7 +27,7 @@ services:
       - POSTGRES_HOST=db
       - SYNAPSE_ENABLE_REGISTRATION=true
     command: >
-      bash -c "
+      sh -c "
         if [ ! -f /data/homeserver.yaml ]; then
           python -m synapse.app.homeserver --server-name chats.gorsee.ru --config-path /data/homeserver.yaml --generate-config --report-stats=no;
         fi;
